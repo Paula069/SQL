@@ -13,11 +13,13 @@ import android.widget.Toast;
 public class MainActivity2 extends AppCompatActivity {
     private SQLiteDatabase db2;
     Cursor cursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
     }
+
     public void solicitar(View view) {
 
         try {
@@ -38,10 +40,10 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         cursor.close();
         db2.close();
+
     }
 }
