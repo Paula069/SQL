@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="backgroundColor">#F5F5F5</color> <!-- Color de fondo -->
+    <color name="editTextColor">#FFFFFF</color> <!-- Color de fondo para EditText -->
+    <color name="buttonColor">#FF4081</color> <!-- Color de botones -->
+    <color name="colorLila">#D8BFD8</color>
+    <color name="colorBackground">#E3F2FD</color> <!-- Fondo azul claro -->
+    <color name="colorPrimaryr">#2196F3</color> <!-- Color azul para botones -->
 </resources>
