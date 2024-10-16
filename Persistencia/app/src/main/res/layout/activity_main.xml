@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="20dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/solicitarDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="consultar datos"
+        tools:layout_editor_absoluteX="230dp"
+        android:onClick="solicitar"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <Button
+        android:id="@+id/ingresarDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="guardar datos"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="77dp"
+        tools:layout_editor_absoluteY="457dp"
+        android:onClick="BotonCarga"/>
+
+    <EditText
+        android:id="@+id/direccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="direccion origen"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="fecha"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="361dp" />
+
+    <EditText
+        android:id="@+id/peso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="peso"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="249dp" />
+
+    <EditText
+        android:id="@+id/alto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="alto"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="131dp" />
+
+    <EditText
+        android:id="@+id/hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="hora"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <EditText
+        android:id="@+id/tipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="tipo de carga"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <EditText
+        android:id="@+id/ancho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="ancho"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="189dp" />
+
+    <ListView
+        android:id="@+id/daticos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
