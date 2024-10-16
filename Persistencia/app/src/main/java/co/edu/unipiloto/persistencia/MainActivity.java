@@ -6,30 +6,30 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase db;
     private SQLiteDatabase db2;
     Cursor cursor;
+    private RegistroDataBaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SQLiteOpenHelper RegistroDataBaseHelper = new RegistroDataBaseHelper(MainActivity.this);
-        db = RegistroDataBaseHelper.getWritableDatabase();
-        db2 = RegistroDataBaseHelper.getReadableDatabase();
+        dbHelper = new RegistroDataBaseHelper(MainActivity.this);
+        db = dbHelper.getWritableDatabase();
+        db2 = dbHelper.getReadableDatabase();
     }
 
     public static void insertCarga(SQLiteDatabase db, String DIR, String TIPO, String ALTO, String ANCHO, String PESO, String HORA, String FECHA) {
-
         ContentValues drinkValues = new ContentValues();
         drinkValues.put("DIRECCION_O", DIR);
         drinkValues.put("TIPO_CARGA", TIPO);
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         drinkValues.put("HORA", HORA);
         drinkValues.put("FECHA", FECHA);
         db.insert("REGISTROS", null, drinkValues);
-
     }
 
     public void BotonCarga(View view) {
@@ -59,35 +58,43 @@ public class MainActivity extends AppCompatActivity {
         String hour = hora.getText().toString();
         String date = fecha.getText().toString();
 
-        insertCarga(db, direc, tipos, alt, anch, pesoo, hour, date);
-
+        if (!dbHelper.isDuplicate(db, direc, tipos, alt, anch, pesoo, hour, date)) {
+            insertCarga(db, direc, tipos, alt, anch, pesoo, hour, date);
+            Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Ya existe un registro con estos datos", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void solicitar(View view) {
         ListView datos = (ListView) findViewById(R.id.daticos);
         try {
             cursor = db2.query("REGISTROS",
-                    new String[]{"_id, DIRECCION_O"}, null, null, null, null, null);
+                    new String[]{"_id", "DIRECCION_O", "TIPO_CARGA", "PESO", "FECHA"},
+                    null, null, null, null, null);
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(MainActivity.this,
-                    android.R.layout.simple_list_item_1,
+                    android.R.layout.simple_list_item_2,
                     cursor,
-                    new String[]{"DIRECCION_O"},
-                    new int[]{android.R.id.text1},
+                    new String[]{"DIRECCION_O", "TIPO_CARGA", "PESO", "FECHA"},
+                    new int[]{android.R.id.text1, android.R.id.text2},
                     0);
+            listAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                    if (view.getId() == android.R.id.text2) {
+                        String tipo = cursor.getString(cursor.getColumnIndexOrThrow("TIPO_CARGA"));
+                        String peso = cursor.getString(cursor.getColumnIndexOrThrow("PESO"));
+                        String fecha = cursor.getString(cursor.getColumnIndexOrThrow("FECHA"));
+                        ((TextView) view).setText(tipo + " - " + peso + " kg - " + fecha);
+                        return true;
+                    }
+                    return false;
+                }
+            });
             datos.setAdapter(listAdapter);
-
-        } catch (SQLException e) {
-            Toast toast = Toast.makeText(this, "epa, como que no funciono mani...", Toast.LENGTH_SHORT);
-            toast.show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al consultar los datos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
-
-
-    public void onDestroy(){
-        super.onDestroy();
-        cursor.close();
-        db.close();
-    }
-
-
 }
